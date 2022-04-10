@@ -1,0 +1,19 @@
+{
+    "name": "lia-tec/manager",
+    "description": "base Manager package",
+    "autoload": {
+        "psr-4": {
+            "LiaTec\\Manager\\": "src/",
+            "Tests\\": "test/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Charly",
+            "email": "cmpere@gmail.com"
+        }
+    ],
+    "require-dev": {
+        "phpunit/phpunit": "^8"
+    }
+}
