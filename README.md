@@ -1,6 +1,8 @@
 # Manager
-Paquete base del manager
-
+Paquete base del manager proporciona una interfaz unificada que permite extraer objetos mas comodamente por ejemplo:
+```php
+    ApiResourceCompany::resourceName($iddentity)->resourceMethod()
+```
 ## Usage
 Crea un clase que hereda de `Factory` y suscribe los **managers** para poder extraerlas, `FancyManager:class` puede ser cualquier clase
 ```php
