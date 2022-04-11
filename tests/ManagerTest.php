@@ -25,4 +25,15 @@ class ManagerTest extends TestCase
         $this->assertEquals(TestManager::class, $testManager);
         $this->assertArrayHasKey('test', $managers);
     }
+
+    /** @test */
+    public function it_passes_parameters_to_manager()
+    {
+        $this->factory->setManager('test', TestManager::class);
+
+        $manager = $this->factory->test('foo', 'bar');
+
+        $this->assertEquals($manager->foo, 'foo');
+        $this->assertEquals($manager->bar, 'bar');
+    }
 }
