@@ -7,4 +7,6 @@ namespace LiaTec\Manager;
  */
 abstract class Manager
 {
+
+
 }

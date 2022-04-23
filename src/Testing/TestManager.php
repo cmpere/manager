@@ -5,7 +5,6 @@ namespace LiaTec\Manager\Testing;
 class TestManager
 {
     public $foo;
-
     public $bar;
 
     public function __construct($foo, $bar)
