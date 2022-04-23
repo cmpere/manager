@@ -2,22 +2,27 @@
 
 namespace Tests;
 
-use LiaTec\Manager\Testing\TestFactory;
-use LiaTec\Manager\Testing\TestManager;
 use PHPUnit\Framework\TestCase;
+use LiaTec\Manager\Testing\TestManager;
+use LiaTec\Manager\Testing\TestFactory;
 
-class ManagerTest extends TestCase
+class FactoryTest extends TestCase
 {
+    /**
+     * @var TestFactory
+     */
     protected $factory;
 
     public function setUp(): void
     {
         parent::setUp();
-        $this->factory = TestFactory::instance();
+        $this->factory = new TestFactory();
     }
 
-    /** @test */
-    public function it_sets_manager_to_factory()
+    /** @test
+     * @throws \Exception
+     */
+    public function it_sets_manager_to_factory(): void
     {
         $this->factory->setManager('test', TestManager::class);
         $managers    = $this->factory->getManagers();
@@ -27,13 +32,14 @@ class ManagerTest extends TestCase
     }
 
     /** @test */
-    public function it_passes_parameters_to_manager()
+    public function it_passes_parameters_to_manager(): void
     {
         $this->factory->setManager('test', TestManager::class);
 
+        /** @phpstan-ignore-next-line */
         $manager = $this->factory->test('foo', 'bar');
 
-        $this->assertEquals($manager->foo, 'foo');
-        $this->assertEquals($manager->bar, 'bar');
+        $this->assertEquals('foo', $manager->foo);
+        $this->assertEquals('bar', $manager->bar);
     }
 }

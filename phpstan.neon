@@ -1,0 +1,15 @@
+parameters:
+
+    paths:
+        - src
+        - tests
+
+    level: 5
+
+    ignoreErrors:
+        - '#^Access to an undefined property LiaTec\\Manager\\Model\:\:.#'
+
+    excludePaths:
+        # - ./*/*/FileToBeExcluded.php
+
+    checkMissingIterableValueType: false

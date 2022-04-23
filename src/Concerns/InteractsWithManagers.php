@@ -2,35 +2,50 @@
 
 namespace LiaTec\Manager\Concerns;
 
+use Exception;
+
 trait InteractsWithManagers
 {
     /**
-     * Contenedor de managers
+     * Manager container
      *
      * @var array
      */
     protected $managers = [];
 
-    /**
-     * Inits each manager
-     *
-     * @param mixed  $manager
-     * @param array  $parameters
-     * @param string $name
-     *
-     * @return mixed
-     */
-    public function boot($manager, $parameters, $name = null)
+    public function __construct()
     {
-        return new $manager(...$parameters);
     }
 
     /**
-     * Gets factory instance
+     * Forwards calls
+     *
+     * @param  string  $method
+     * @param  array   $parameters
+     *
+     * @return static
      */
-    public static function instance()
+    public static function __callStatic(string $method, array $parameters)
     {
-        return new static();
+        return (new static())->$method(...$parameters);
+    }
+
+
+    /**
+     * Gets installed manager
+     *
+     * @param  string  $name
+     *
+     * @return string
+     * @throws Exception
+     */
+    public function getManager(string $name): string
+    {
+        if (!array_key_exists($name, $this->managers)) {
+            throw new Exception(sprintf('"%s" not exists!', $name));
+        }
+
+        return $this->managers[$name];
     }
 
     /**
@@ -45,28 +60,9 @@ trait InteractsWithManagers
 
     /**
      * Sets manager
-     *
-     * @return array
      */
-    public function setManager(string $name, $class)
+    public function setManager(string $name, string $class): void
     {
         $this->managers[$name] = $class;
-
-        return $this;
-    }
-
-    /**
-     * Gets installed manager
-     *
-     * @param  string $name
-     * @return mixed
-     */
-    public function getManager(string $name)
-    {
-        if (!array_key_exists($name, $this->managers)) {
-            throw new \Exception(sprintf('"%s" not exists!', $name));
-        }
-
-        return $this->managers[$name];
     }
 }

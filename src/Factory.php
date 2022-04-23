@@ -2,8 +2,8 @@
 
 namespace LiaTec\Manager;
 
-use LiaTec\Manager\Concerns\InteractsWithManagers;
 use LiaTec\Manager\Contracts\WorksWithManagers;
+use LiaTec\Manager\Concerns\InteractsWithManagers;
 
 /**
  * Base class for manager factories
@@ -13,32 +13,32 @@ abstract class Factory implements WorksWithManagers
     use InteractsWithManagers;
 
     /**
-     * Administra la llamada estatica a la clase
-     * crea la instancia realizando proxy al metodo
-     * para que sea resuelto por __call
+     * Inits each manager
      *
-     * @param  string $method
-     * @param  array  $parameters
-     * @return static
+     * @param  mixed   $manager
+     * @param  array   $parameters
+     * @param  string  $name
      */
-    public static function __callStatic($method, $parameters)
+    public function boot($manager, $parameters, $name = null)
     {
-        return (new static())->$method(...$parameters);
+        return new $manager(...$parameters);
     }
 
     /**
-     * Boots factory
+     * BootsBoots factory
      *
-     * @param  string $method
-     * @param  array  $parameters
+     * @param  string  $method
+     * @param  array   $parameters
+     *
      * @return mixed
+     * @throws \Exception
      */
     public function __call($method, $parameters)
     {
         return call_user_func_array([$this, 'boot'], [
-            $this->getManager($method),
-            $parameters,
-            $method,
+            $this->getManager($method), $parameters, $method,
         ]);
     }
+
+
 }
