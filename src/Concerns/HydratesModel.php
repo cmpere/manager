@@ -27,20 +27,13 @@ trait HydratesModel
             $self->setBindings($bindings);
         }
 
-
         if ($bindings = $self->getBindings()) {
-
             foreach ($bindings as $attribute => $type) {
-
-
                 if (!array_key_exists($attribute, $data)) {
-                    var_dump("Warning: {$attribute} ({$type}) not found in data!");
-
                     continue;
                 }
 
                 if (is_array($type) && count($type) == 1) {
-
                     $self->setAttribute($attribute,
                         Hydrator::collection($type[0], $data[$attribute])
                     );
@@ -49,7 +42,6 @@ trait HydratesModel
                 }
 
                 if (class_exists($type)) {
-
                     $self->setAttribute($attribute,
                         Hydrator::model($type, $data[$attribute])
                     );
@@ -57,11 +49,9 @@ trait HydratesModel
                     continue;
                 }
 
-
                 $self->setAttribute($attribute,
                     Cast::as($data[$attribute], $type)
                 );
-
             }
         }
 
