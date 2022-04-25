@@ -6,9 +6,8 @@ use LiaTec\Manager\Model;
 
 class TestModelCollectionItem extends Model
 {
-
-    protected $bindings
-        = [
-            'name' => 'string'
-        ];
+    protected $bindings = [
+        'name'    => 'string',
+        'deepArr' => 'array',
+    ];
 }
