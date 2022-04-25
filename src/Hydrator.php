@@ -10,7 +10,6 @@ use LiaTec\Manager\Contracts\Hydratable;
  */
 class Hydrator
 {
-
     /**
      * Enforces use of new static()
      */
@@ -21,8 +20,8 @@ class Hydrator
     /**
      * Hydrates class collection
      *
-     * @param  string  $class
-     * @param  array   $data
+     * @param string $class
+     * @param array  $data
      *
      * @return array
      * @throws Exception
@@ -44,13 +43,12 @@ class Hydrator
         return array_map(function ($it) use ($self, $class) {
             return $self->model($class, $it);
         }, $data);
-
     }
 
     /**
      * Queries if class implements Hydratable contract
      *
-     * @param  string  $class
+     * @param string $class
      *
      * @return bool
      * @throws Exception
@@ -67,20 +65,18 @@ class Hydrator
     /**
      * Hydrates class model
      *
-     * @param  string  $class
-     * @param  array   $data
+     * @param string $class
+     * @param array  $data
      *
      * @return mixed
      * @throws Exception
      */
     public static function model(string $class, array $data)
     {
-
         if (!(new static())->implements($class)) {
             throw new Exception("Class {$class} does not implements contract", 1);
         }
 
         return $class::hydrateFromArray($data);
     }
-
 }

@@ -7,7 +7,6 @@ use LiaTec\Manager\Hydrator;
 
 trait HydratesModel
 {
-
     public static function inBindings(array $data, array $bindings = []): bool
     {
         $bindings = empty($bindings) ? (new static())->getBindings() : $bindings;
@@ -34,7 +33,8 @@ trait HydratesModel
                 }
 
                 if (is_array($type) && count($type) == 1) {
-                    $self->setAttribute($attribute,
+                    $self->setAttribute(
+                        $attribute,
                         Hydrator::collection($type[0], $data[$attribute])
                     );
 
@@ -42,14 +42,16 @@ trait HydratesModel
                 }
 
                 if (class_exists($type)) {
-                    $self->setAttribute($attribute,
+                    $self->setAttribute(
+                        $attribute,
                         Hydrator::model($type, $data[$attribute])
                     );
 
                     continue;
                 }
 
-                $self->setAttribute($attribute,
+                $self->setAttribute(
+                    $attribute,
                     Cast::as($data[$attribute], $type)
                 );
             }
@@ -57,5 +59,4 @@ trait HydratesModel
 
         return $self;
     }
-
 }
