@@ -177,7 +177,6 @@ class ModelTest extends TestCase
         $model = TestModel::hydrateFromArray($this->payload, $this->bindings);
         $this->assertInstanceOf(TestModel::class, $model);
         $arrayable = $model->toArray();
-        dump($arrayable);
         $this->assertIsArray($arrayable);
         $this->assertArrayHasKey('isString', $arrayable);
         $this->assertArrayHasKey('isFloat', $arrayable);
