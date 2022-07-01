@@ -20,8 +20,8 @@ trait InteractsWithManagers
     /**
      * Forwards calls
      *
-     * @param  string  $method
-     * @param  array   $parameters
+     * @param string $method
+     * @param array  $parameters
      *
      * @return static
      */
@@ -30,11 +30,10 @@ trait InteractsWithManagers
         return (new static())->$method(...$parameters);
     }
 
-
     /**
      * Gets installed manager
      *
-     * @param  string  $name
+     * @param string $name
      *
      * @return string
      * @throws Exception

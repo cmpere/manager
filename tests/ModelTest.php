@@ -162,6 +162,28 @@ class ModelTest extends TestCase
     /** @test
      * @throws \Exception
      */
+    public function it_hydrates_from_array_with_all_data(): void
+    {
+        $data  = array_merge($this->payload, ['outsideBindingsModel' => 'data']);
+        $model = TestModel::hydrateFromArray($data, $this->bindings, true);
+        $this->assertInstanceOf(TestModel::class, $model);
+        $this->assertNotNull($model->outsideBindingsModel);
+    }
+
+    /** @test
+     * @throws \Exception
+     */
+    public function it_hydrates_from_array_only_with_bindings(): void
+    {
+        $data  = array_merge($this->payload, ['outsideBindingsModel' => 'data']);
+        $model = TestModel::hydrateFromArray($data, $this->bindings);
+        $this->assertInstanceOf(TestModel::class, $model);
+        $this->assertNull($model->outsideBindingsModel);
+    }
+
+    /** @test
+     * @throws \Exception
+     */
     public function it_hydrates_from_array_with_mutable_collection(): void
     {
         $model = TestModel::hydrateFromArray($this->mutablePayload, $this->bindings);

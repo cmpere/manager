@@ -3,6 +3,7 @@
 namespace LiaTec\Manager;
 
 use Exception;
+use LiaTec\Caster\Cast;
 use LiaTec\Manager\Contracts\Hydratable;
 
 /**
@@ -78,5 +79,31 @@ class Hydrator
         }
 
         return $class::hydrateFromArray($data);
+    }
+
+    /**
+     * Hydrates values
+     *
+     * @param  mixed|null $type
+     * @param  mixed|null $value
+     * @return mixed
+     */
+    public static function hydrate($type, $value)
+    {
+        $self = new static();
+
+        if (is_array($type) && count($type) == 1) {
+            return $self::collection($type[0], $value);
+        }
+
+        if (class_exists($type)) {
+            return $self::model($type, $value);
+        }
+
+        if (!is_null($type)) {
+            return Cast::as($value, $type);
+        }
+
+        return $value;
     }
 }
